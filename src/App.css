@@ -1,24 +1,71 @@
-.App {
-  text-align: center;
+
+/* change button */
+button {
+    background:none!important;
+    color: #039be5;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    /*border is optional*/
+    border-bottom:1px solid #444; 
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+
+
+/* materialize overwrites */
+h1 {
+	font-size: 2.7rem;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
+    border: 0px;
 }
 
-.App-intro {
-  font-size: large;
+[type="radio"] + label:before,
+[type="radio"] + label:after {
+  content: none; /* changed */
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 4px;
+  width: 16px;
+  height: 16px;
+  z-index: 0;
+  transition: .28s ease;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+[type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
+    position: relative;
+    padding-left: 0px; /* changed */
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 1rem;
+    -webkit-transition: .28s ease;
+    -o-transition: .28s ease;
+    transition: .28s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+[type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
+    position: relative;
+    padding-left: 0px;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 2em;			/* changed */
+    -webkit-transition: .28s ease;
+    -o-transition: .28s ease;
+    transition: .28s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+// import PropTypes from 'prop-types';
 
 // StarRatingComponent.propTypes = {
 //     name: _react.PropTypes.string.isRequired,
@@ -18,7 +19,14 @@ import ReactDOM from 'react-dom';
 //     starColor: '#ffb400',
 //     emptyStarColor: '#333'
 //   };
+
+//30 June 2017: if it's one month later than this date, update this package it has a proptype warning.
+//the npm registry does not have the latest version
 import StarRatingComponent from 'react-star-rating-component';
+
+import 'materialize-css/dist/css/materialize.css';
+// import 'jquery/dist/jquery.js';
+// import 'materialize-css/dist/js/materialize.js';
 
 import './App.css';
 
@@ -51,19 +59,21 @@ const favorites = [
 
 const SubmitFavorite = ({favorite, handleSubmit, handleChange, onStarClick}) =>
   <div className='submit-favorite'>
-    <span style={{ padding: '1%'}}>
-      <input 
-        type="submit" 
-        value="Submit" 
-        onClick={() => handleSubmit(favorite) }/>
-    </span>
-    <StarRatingComponent 
-      name="rateSubmit" 
-      starCount={5}
-      value={0}
-      onStarClick={onStarClick}
-    />
-    <div style={{ padding: '1%'}}>
+    <div className='submit-favorite-upper'>
+      <span style={{ padding: '1%'}}>
+        <input 
+          type="submit" 
+          value="Submit" 
+          onClick={() => handleSubmit(favorite) }/>
+      </span>
+      <StarRatingComponent 
+        name="rateSubmit" 
+        starCount={5}
+        value={0}
+        onStarClick={onStarClick}
+      />
+    </div>
+    <div className='submit-favorite-lower' style={{ padding: '1%'}}>
       <input 
         type="text" 
         placeholder="Type URL Here"
@@ -80,44 +90,51 @@ const ResultsDisplay = ({list, submissionText, rating, sortByRating, sortByDate}
   </div>
 
 const FilterSettings = ({sortByRating, sortByDate}) =>
-  <div className="filter-settings">
-    <span style={{ padding: '1%'}}> 
-      <a href="#" onClick={sortByRating} >Highest Rated</a>
+  <div className="filter-settings row">
+    <span 
+      className='col s2'
+      style={{ padding: '1%'}}
+    > 
+      <button onClick={sortByRating} >Highest Rated</button>
     </span>
-    <span style={{ padding: '1%'}}> 
-      <a href="#" onClick={sortByDate} >Newest First</a>
+    <span 
+      className='col s2'
+      style={{ padding: '1%'}}
+    > 
+      <button onClick={sortByDate} >Newest First</button>
     </span>
   </div>
 
 const FavoriteResults = ({ list }) =>
   <div className="favorite-results">
     { list.map(item =>
-      <div key={item.objectID} className="result-row"> 
-        <span style={{ width: '40%', padding: '1%'}}>
-          <a href={item.url}>{item.title}</a>
-        </span>
-        <span style={{ width: '30%'}}> 
-        </span>
-        <span style={{ width: '10%'}}> 
-        </span>
-        <span style={{ width: '10%'}}> 
-          <StarRatingComponent 
-            name={"rate" + item.objectID}
-            starCount={5}
-            value={item.rating}
-            editing={false}
-          />
-        </span>
-        <span style={{ width: '10%'}}>
-          {
-            item.date.getDate() + '-' + (item.date.getMonth() + 1) + '-' + item.date.getFullYear()
-          }
-        </span>
+      <div key={item.objectID} className="result-row row"> 
+        <a
+          className='col s4' 
+          style={{ padding: '1%'}} 
+          href={item.url}
+        >
+          {item.title}
+        </a>
+        <StarRatingComponent 
+          style={{ padding: '1%'}}
+          className='stars col s4'
+          name={"rate" + item.objectID}
+          starCount={5}
+          value={item.rating}
+          editing={false}
+        />
+{
+        // <span style={{ width: '10%'}}>
+        //   {
+        //     item.date.getDate() + '-' + (item.date.getMonth() + 1) + '-' + item.date.getFullYear()
+        //   }
+        // </span>
+}
       </div> 
     )}
   </div>
         
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -146,6 +163,7 @@ class App extends Component {
       date: new Date(),
     }]
     this.setState( {list: updatedList} )
+    //reset state
   }
 
   handleChange(event) {
@@ -164,7 +182,6 @@ class App extends Component {
     });
     this.setState({favorites: sortedFavorites})
   }
-
   
   sortByDate(){
     const sortedFavorites = this.state.list.sort(function(a,b){
@@ -177,8 +194,10 @@ class App extends Component {
   render() {
     const { list, submissionText, rating } = this.state;
     return (
-      <div className="page">
-        <h1>Submit A New Favorite</h1>
+      <div id="page-wrap">
+        <h1 className="test">
+          Submit A New Favorite
+        </h1>
         <SubmitFavorite 
           favorite={submissionText} 
           handleSubmit={this.handleSubmit}
