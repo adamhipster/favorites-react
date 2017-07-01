@@ -112,7 +112,8 @@ const FavoriteResults = ({ list }) =>
         <a
           className='col s4' 
           style={{ padding: '1%'}} 
-          href={item.url}
+          href={'http://'+item.url}
+          target="_blank"
         >
           {item.title}
         </a>
